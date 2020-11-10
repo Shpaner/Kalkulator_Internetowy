@@ -1,0 +1,121 @@
+/* autor Tobiasz Witalis */
+
+@import url('https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900&display=swap');
+
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: 'Poppins', sans-serif;
+}
+
+body {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 100vh;
+	background: #091921;
+}
+
+.calculator, .special {
+	position: relative;
+	display: grid;
+	padding: 3px;
+}
+
+.calculator .value {
+	grid-column : span 4;
+	height: 70px;
+	text-align: right;
+	padding: 10px;
+	font-size: 17px;
+	border: 0;
+	border-radius: 25px 25px 0px 0px;
+	pointer-events: none;
+}
+
+.calculator .value_sum {
+	grid-column : span 4;
+	height: 25px;
+	text-align: right;
+	border: none;
+	padding: 10px;
+	font-size: 15px;
+	pointer-events: none;
+}
+
+.calculator span {
+	display: grid;
+	width: 60px;
+	height: 60px;
+	color: #fff;
+	background: #0c2835;
+	place-items: center;
+	border: 1px solid rgba(0, 0, 0, .1);
+	user-select: none;
+}
+
+.special span {
+	display: grid;
+	width: 60px;
+	height: 60px;
+	color: #fff;
+	background: #0c2835;
+	place-items: center;
+	border: 1px solid rgba(0, 0, 0, .3);
+	user-select: none;
+}
+
+.calculator span:hover, .special span:hover, .calculator span.plus:hover {
+	background: #74ff3b !important; 
+	color: #111 !important;
+}
+
+.calculator span.clear {
+	grid-column: span 2;
+	width: 120px;
+	background : #ff3077;
+}
+
+.calculator span.plus {
+	grid-row: span 2;
+	height: 120px;
+}
+
+.calculator span.equal {
+	background: #03b1ff;
+	border: 0;
+	border-bottom-right-radius: 25px; 
+}
+
+.calculator span.zero {
+	border: 0;
+	border-bottom-left-radius: 25px; 
+}
+
+.special span.spec {
+	background: #74ff3b;
+	color: #111;
+	border: 0;
+	border-radius: 25px;
+}
+
+.special span.sin {
+	border: 0;
+	border-top-right-radius: 25px;
+	border-top-left-radius: 25px;
+}
+
+.special span.arcsin {
+	border: 0;
+	border-bottom-right-radius: 25px;
+	border-bottom-left-radius: 25px;
+}
+
+.special span.spec:hover {
+	color: white !important;
+}
+
+
+

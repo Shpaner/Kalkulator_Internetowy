@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html meta name="author" content="Tobiasz Witalis">
+<head>
+	<title>Kalkulator</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<script type="text/javascript" src="functions.js"></script>
+	<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+	<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+	<form class="calculator" name="calc">
+		<input class="value" type="text" name="txt" readonly="" value="120">
+		<input class="value_sum" type="text" name="txt" readonly="" value="2*60">
+		<span class="num clear" onclick="document.calc.txt.value = ''">c</span>	
+		<span id="/" class="num" onclick="addValue('/')">\[/\]</span>
+		<span id="*" class="num" onclick="addValue('*')">\[*\]</span>
+		<span class="num" onclick="addValue('7')">7</span>
+		<span class="num" onclick="addValue('8')">8</span>
+		<span class="num" onclick="addValue('9')">9</span>
+		<span id="-" class="num" onclick="addValue('-')">\[-\]</span>
+		<span class="num" onclick="addValue('4')">4</span>
+		<span class="num" onclick="addValue('5')">5</span>
+		<span class="num" onclick="addValue('6')">6</span>
+		<span id="+" class="num plus" onclick="addValue('+')">\[+\]</span>
+		<span class="num" onclick="addValue('1')">1</span>
+		<span class="num" onclick="addValue('2')">2</span>
+		<span class="num" onclick="addValue('3')">3</span>
+		<span class="num zero" onclick="document.calc.txt.value += '0'">0</span>
+		<span class="num" onclick="addValue('00')">00</span>
+		<span class="num" onclick="addValue('.')">.</span>
+		<span class="num equal" onclick="document.calc.txt.value = eval(calc.txt.value)">\[=\]</span>
+	</form>
+	<form class="special">
+		<span class="num spec" onclick="openSpec()">spec</span>
+		<div id="hidden_spec" style="display: none">
+			<span class="num sin" onclick="addValue('sin')">\[sin\]</span>
+			<span class="num" onclick="addValue('cos')">\[cos\]</span>
+			<span class="num" onclick="addValue('tan')">\[tan\]</span>
+			<span class="num" onclick="addValue('sqrt')">\[sqrt\]</span>
+			<span class="num" onclick="addValue('x^2')">\[x^2\]</span>
+			<span class="num arcsin" onclick="addValue('arcin)">\[arcin\]</span>
+		</div>
+	</form>
+</body>
+</html>																										
