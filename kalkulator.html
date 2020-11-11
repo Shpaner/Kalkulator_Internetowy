@@ -11,7 +11,7 @@
 	<form class="calculator" name="calc">
 		<input class="value" type="text" name="txt" readonly="" value="120">
 		<input class="value_sum" type="text" name="txt" readonly="" value="2*60">
-		<span class="num clear" onclick="document.calc.txt.value = ''">c</span>	
+		<span class="num clear" onclick="clearValues()">c</span>	
 		<span id="/" class="num" onclick="addValue('/')">\[/\]</span>
 		<span id="*" class="num" onclick="addValue('*')">\[*\]</span>
 		<span class="num" onclick="addValue('7')">7</span>
@@ -28,7 +28,7 @@
 		<span class="num zero" onclick="document.calc.txt.value += '0'">0</span>
 		<span class="num" onclick="addValue('00')">00</span>
 		<span class="num" onclick="addValue('.')">.</span>
-		<span class="num equal" onclick="document.calc.txt.value = eval(calc.txt.value)">\[=\]</span>
+		<span class="num equal" onclick="calculateValue()">\[=\]</span>
 	</form>
 	<form class="special">
 		<span class="num spec" onclick="openSpec()">spec</span>
