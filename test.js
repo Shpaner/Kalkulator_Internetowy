@@ -1,10 +1,9 @@
-var equation
+var equation = ""
 var wasSymbol
-var chosenSymbol = "0"
-var lastNumber = "0";
+var chosenSymbol = "/"
+var lastNumber = "0"
 var convert = true
 var hasCalculated = true
-var inputs
 var label
 var equ_label
 
@@ -24,31 +23,29 @@ function calculateEquation(equ) {
 // manipulatie number-buttons
 function nrButton(btnNr) {
 
-    //changeColor(btnNr)
-
     if (hasCalculated) {
+
+        //dodaj nowy numer
+        console.log("1")
         label.value = btnNr
         lastNumber = btnNr
         equation = ""
         equ_label.value = "" // chnge visibility
     } else {
+        // dodaj numer na koncu
+        console.log("2")
         // get last character
         var lastChar = equ_label.value.slice(-1)
-        if (lastChar >= '0' && lastChar <= '9') /*&& (label.value.length < 9)*/ {
+        if ((lastChar >= '0' && lastChar <= '9') || lastChar == "") /*&& (label.value.length < 9)*/ {
             label.value += btnNr
             lastNumber += btnNr
         } else {
             if (wasSymbol) {
                 label.value = btnNr
-            } 
-            // else
-            // {
-            //     if (label.Content.ToString().Length < 9)
-            //     {
-            //         label.Content += btnNr;
-            //         lastNumber += btnNr;
-            //     }
-            // }
+            } else {
+                label.value += btnNr
+                lastNumber += btnNr
+            }
         }
     }
     wasSymbol = false
@@ -58,25 +55,28 @@ function nrButton(btnNr) {
 // +, -, *, /
 function actionButton(btnSymbol) {
 
-    // change color
+    changeColor(btnSymbol)
 
     if (!hasCalculated) {
         if (!wasSymbol) {
+            console.log("3")
             equation += label.value + btnSymbol
             equ_label.value = equation
             lastNumber = label.value
             label.value = calculateEquation(equation)
             chosenSymbol = btnSymbol
-            equ_label.value = "" // hidden
+            //equ_label.value = "" // hidden
         } else {
+            console.log("4")
             var tmp = equ_label.value.slice(0, -1)
             equation = tmp + btnSymbol
             equ_label.value = equation
             chosenSymbol = btnSymbol
         }
     } else {
+        console.log("5")
         chosenSymbol = btnSymbol
-        lastNumber = label.content
+        lastNumber = label.value
         equation = lastNumber + chosenSymbol
         equ_label.value = equation
     }
@@ -85,7 +85,56 @@ function actionButton(btnSymbol) {
     wasSymbol = true
 }
 
-function calculate() {
+function addValue(val) {
+
+    const signsArray = ['/', '*', '-', '+']
+    const specialSignsArray = ['sin', 'cos', 'tan', 'sqrt', 'x^2', 'arcsin']
+    var isSymbol = false
+    var isSpecialSign = false
+    
+    for (var i = 0; i < specialSignsArray.length; i++) {
+		if (specialSignsArray[i] == val) {
+			isSpecialSign = true
+			break
+		}
+	}
+
+    for (var i = 0; i < signsArray.length; i++) {
+        if (val == signsArray[i]) {
+            // symbol button
+            actionButton(val)
+            isSymbol = true
+            break
+        }
+    }
+
+    // number button
+    if (!isSymbol && !isSpecialSign) {
+        nrButton(val)
+    }
+
+    // special sign
+    else {
+		if (label.value != "") {
+
+			if (val == 'sin')
+                label.value = Math.sin(label.value)
+			else if (val == 'cos')
+                label.value = Math.cos(label.value)
+			else if (val == 'tan')
+                label.value = Math.tan(label.value)
+			else if (val == 'sqrt')
+                label.value = Math.sqrt(label.value)
+			else if (val == 'x^2')
+                label.value = Math.pow(label.value, 2)
+			else if (val == 'arcsin')
+                label.value = Math.asin(label.value)
+		}
+    }
+}
+
+// onclick "=" button
+function calculateValue() {
 
     // change color
 
@@ -111,27 +160,33 @@ function calculate() {
     convert = true
 }
 
-function addValue(val) {
+// onClick "c" (clear) button
+function clearValues() {
+    label.value = ""
+    equation = ""
+    wasSymbol = true
+    chosenSymbol = "0"
+    lastNumber = "0"
+    equ_label.value = ""
+    hasCalculated = true
+}
 
-    const signsArray = ['/', '*', '-', '+']
-    var isSymbol = false
-    
-    for (var i = 0; i < signsArray.length; i++) {
-        if (val == signsArray[i]) {
-            actionButton(val)
-            isSymbol = true
-            break
-        }
-    }
+// open special options signs
+function openSpec() {
 
-    if (!isSymbol) {
-        nrButton(val)
-    }
+	var i, x
+	x = document.getElementById("hidden_spec")
+
+	if (x.style.display == "none") {
+		document.getElementById("hidden_spec").style.display = "block"
+	} else {
+		document.getElementById("hidden_spec").style.display = "none"
+	}
 }
 
 function changeColor(val) {
 
-	if (lastCharacter != "") {
+	if (label.value != "") {
 		// change color of previously clicked sign
 		document.getElementById(chosenSymbol).style.color = "#FFF"
 		document.getElementById(chosenSymbol).style.backgroundColor = "#0c2835"
@@ -145,7 +200,7 @@ function changeColor(val) {
 // on open change input to none
 document.addEventListener('DOMContentLoaded', function() {
 
-	inputs = document.querySelectorAll('input')
+	var inputs = document.querySelectorAll('input')
 	inputs.forEach( input => {
     	input.value = ""
     })
